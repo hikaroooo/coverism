@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>표지주의 – 책 표지 갤러리</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    .site-title {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin: 60px 0 10px;
+      font-family: 'Georgia', serif;
+      letter-spacing: 1px;
+    }
+
+    .filter {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .filter span {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 1px solid #ccc;
+    }
+
+    .filter .all-button {
+      border-radius: 4px;
+      padding: 2px 8px;
+      background: #333;
+      color: white;
+      font-size: 13px;
+      line-height: 20px;
+      cursor: pointer;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px;
+    }
+
+    .book {
+      width: 180px;
+      position: relative;
+    }
+
+    .book img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .book:hover img {
+      transform: scale(1.03);
+    }
+
+    .book p {
+      display: none;
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      margin: 0;
+      padding: 5px 0;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      font-size: 13px;
+    }
+
+    .book:hover p {
+      display: block;
+    }
+
+    .like-button {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      color: #aaa;
+      z-index: 2;
+    }
+
+    .like-button.liked {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="site-title">표지주의</div>
+
+  <div class="filter">
+    <div class="all-button" onclick="filterByColor('all')">All</div>
+    <span style="background:#000000" onclick="filterByColor('black')"></span>
+    <span style="background:#FF0000" onclick="filterByColor('red')"></span>
+    <span style="background:#FFA500" onclick="filterByColor('orange')"></span>
+    <span style="background:#FFFF00" onclick="filterByColor('yellow')"></span>
+    <span style="background:#008000" onclick="filterByColor('green')"></span>
+    <span style="background:#0000FF" onclick="filterByColor('blue')"></span>
+    <span style="background:#A52A2A" onclick="filterByColor('brown')"></span>
+    <span style="background:#808080" onclick="filterByColor('gray')"></span>
+    <span style="background:#FFC0CB" onclick="filterByColor('pink')"></span>
+  </div>
+
+  <div class="gallery" id="gallery">
+    <div class="book" data-color="black" data-id="book1">
+      <span class="like-button">♥</span>
+      <img src="book1.jpg" alt="책1">
+      <p>곽곽 선생뎐</p>
+    </div>
+    <div class="book" data-color="green" data-id="book2">
+      <span class="like-button">♥</span>
+      <img src="book2.jpg" alt="책2">
+      <p>폭풍의 언덕</p>
+    </div>
+    <div class="book" data-color="red" data-id="book3">
+      <span class="like-button">♥</span>
+      <img src="book3.jpg" alt="책3">
+      <p>사랑 그리고 다른 사고실험들</p>
+    </div>
+    <div class="book" data-color="blue" data-id="book4">
+      <span class="like-button">♥</span>
+      <img src="book4.jpg" alt="책4">
+      <p>나에게 없는 것</p>
+    </div>
+    <div class="book" data-color="orange" data-id="book5">
+      <span class="like-button">♥</span>
+      <img src="book5.jpg" alt="책5">
+      <p>모나의 눈</p>
+    </div>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.like-button');
+
+    buttons.forEach(button => {
+      const bookId = button.closest('.book').getAttribute('data-id');
+      const liked = JSON.parse(localStorage.getItem('likedBooks')) || [];
+
+      if (liked.includes(bookId)) {
+        button.classList.add('liked');
+      }
+
+      button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let likedBooks = JSON.parse(localStorage.getItem('likedBooks')) || [];
+
+        if (likedBooks.includes(bookId)) {
+          likedBooks = likedBooks.filter(id => id !== bookId);
+          button.classList.remove('liked');
+        } else {
+          likedBooks.push(bookId);
+          button.classList.add('liked');
+        }
+
+        localStorage.setItem('likedBooks', JSON.stringify(likedBooks));
+      });
+    });
+
+    function filterByColor(color) {
+      const books = document.querySelectorAll('.book');
+      books.forEach(book => {
+        if (color === 'all' || book.getAttribute('data-color') === color) {
+          book.style.display = 'block';
+        } else {
+          book.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
