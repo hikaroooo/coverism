@@ -1,251 +1,304 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>표지주의</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        margin: 0;
-        padding: 0;
-        background: #f9f9f9;
-      }
-      header {
-        padding: 20px 40px 10px;
-        background: #fff;
-        border-bottom: 1px solid #ddd;
-        text-align: center;
-        position: relative;
-      }
-      .header-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-      }
-      .logo {
-        font-size: 2rem;
-        font-weight: bold;
-        flex: 1;
-        text-align: center;
-      }
-      .login {
-        font-size: 0.9rem;
-      }
-      .login a {
-        text-decoration: none;
-        color: #000;
-      }
-      .menu-button {
-        font-size: 1.5rem;
-        cursor: pointer;
-        background: none;
-        border: none;
-      }
-      .subtitle {
-        font-weight: bold;
-        font-size: 1.1rem;
-        text-align: center;
-        margin-top: 5px;
-      }
-      .sidebar {
-        position: fixed;
-        top: 0;
-        right: -300px;
-        width: 250px;
-        height: 100%;
-        background: #fff;
-        box-shadow: -2px 0 5px rgba(0,0,0,0.1);
-        transition: right 0.3s ease-in-out;
-        padding: 20px;
-        z-index: 1000;
-      }
-      .sidebar.open {
-        right: 0;
-      }
-      .close-btn {
-        text-align: right;
-        font-size: 1.2rem;
-        cursor: pointer;
-      }
-      .sidebar a {
-        display: block;
-        margin: 15px 0;
-        text-decoration: none;
-        color: #333;
-      }
-      .filters {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        padding: 15px;
-        background: #fff;
-        flex-wrap: wrap;
-      }
-      .filters button {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        border: 2px solid transparent;
-        cursor: pointer;
-      }
-      .filters button.active {
-        border-color: black;
-      }
-      .filters button.all {
-        width: auto;
-        height: auto;
-        padding: 6px 12px;
-        border-radius: 15px;
-        background: #fff;
-        border: 1px solid #333;
-        font-weight: bold;
-      }
-      .filters .black { background: black; }
-      .filters .gray { background: gray; }
-      .filters .lightgray { background: #ccc; }
-      .filters .white { background: #f0f0f0; }
-      .filters .red { background: red; }
-      .filters .darkred { background: darkred; }
-      .filters .maroon { background: maroon; }
-      .filters .brown { background: brown; }
-      .filters .tan { background: tan; }
-      .filters .peach { background: peachpuff; }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>표지주의</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+    header {
+      padding: 20px 40px 10px;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+      position: relative;
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      flex: 1;
+      text-align: center;
+    }
+    .login {
+      font-size: 0.9rem;
+    }
+    .login a {
+      text-decoration: none;
+      color: #000;
+    }
+    .menu-button {
+      font-size: 1.5rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .subtitle {
+      font-weight: bold;
+      font-size: 1.1rem;
+      text-align: center;
+      margin-top: 5px;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -250px;
+      width: 250px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+      transition: right 0.3s ease-in-out;
+      padding: 20px;
+      z-index: 1000;
+    }
+    .sidebar.open {
+      right: 0;
+    }
+    .close-btn {
+      text-align: right;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .sidebar a {
+      display: block;
+      margin: 15px 0;
+      text-decoration: none;
+      color: #333;
+    }
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px;
+      background: #fff;
+      flex-wrap: wrap;
+    }
+    .filters button {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+    .filters button.active {
+      border-color: black;
+    }
+    .filters button.all {
+      width: auto;
+      height: auto;
+      padding: 6px 12px;
+      border-radius: 15px;
+      background: #fff;
+      border: 1px solid #333;
+      font-weight: bold;
+    }
+    .filters .black { background: black; }
+    .filters .gray { background: gray; }
+    .filters .lightgray { background: #ccc; }
+    .filters .white { background: #f0f0f0; }
+    .filters .red { background: red; }
+    .filters .darkred { background: darkred; }
+    .filters .maroon { background: maroon; }
+    .filters .brown { background: brown; }
+    .filters .tan { background: tan; }
+    .filters .peach { background: peachpuff; }
 
-      .gallery {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 20px;
-        padding: 20px 40px;
-      }
-      .cover {
-        position: relative;
-        overflow: hidden;
-      }
-      .cover img {
-        width: 100%;
-        height: auto;
-        display: block;
-        border-radius: 4px;
-      }
-      .cover-info {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(255, 255, 255, 0.95);
-        padding: 10px;
-        font-size: 0.85rem;
-        transform: translateY(100%);
-        transition: transform 0.3s ease-in-out;
-      }
-      .cover:hover .cover-info {
-        transform: translateY(0);
-      }
-      .cover-info button {
-        margin-right: 5px;
-        padding: 5px 10px;
-        font-size: 0.75rem;
-        cursor: pointer;
-      }
-      footer {
-        padding: 40px;
-        text-align: center;
-        font-size: 0.9rem;
-        color: #555;
-        background: #f9f9f9;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <div class="header-top">
-        <div class="login"><a href="signup.html">LOG IN</a></div>
-        <div class="logo">표지주의</div>
-        <button id="menu-btn" class="menu-button">☰</button>
-      </div>
-      <div class="subtitle">(소설)</div>
-    </header>
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      padding: 20px 40px;
+    }
+    .cover {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .cover img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+    .cover-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.95);
+      padding: 10px;
+      font-size: 0.85rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+    .cover:hover .cover-info {
+      transform: translateY(0);
+    }
 
-    <div id="sidebar" class="sidebar">
-      <div id="close-btn" class="close-btn">✕</div>
-      <a href="#">TOP 10</a>
-      <a href="#">like or pass</a>
-      <a href="#">my shelf</a>
+    /* 모달 스타일 */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    .modal-content {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 700px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      animation: fadeIn 0.3s ease-in-out;
+      position: relative;
+    }
+    .modal-content img {
+      width: auto;
+      max-width: 100%;
+      height: 500px;
+      object-fit: contain;
+      margin-bottom: 15px;
+      border-radius: 4px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 2rem;
+      color: black;
+      cursor: pointer;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.95);}
+      to {opacity: 1; transform: scale(1);}
+    }
+
+    footer {
+      padding: 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+      background: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-top">
+      <div class="login"><a href="signup.html">LOG IN</a></div>
+      <div class="logo">표지주의</div>
+      <button id="menu-btn" class="menu-button">☰</button>
     </div>
+    <div class="subtitle">(소설)</div>
+  </header>
 
-    <div class="filters">
-      <button class="all active">ALL</button>
-      <button class="black"></button>
-      <button class="gray"></button>
-      <button class="lightgray"></button>
-      <button class="white"></button>
-      <button class="red"></button>
-      <button class="darkred"></button>
-      <button class="maroon"></button>
-      <button class="brown"></button>
-      <button class="tan"></button>
-      <button class="peach"></button>
+  <div id="sidebar" class="sidebar">
+    <div id="close-btn" class="close-btn">✕</div>
+    <a href="#">TOP 10</a>
+    <a href="#">like or pass</a>
+    <a href="#">my shelf</a>
+  </div>
+
+  <div class="filters">
+    <button class="all active">ALL</button>
+    <button class="black"></button>
+    <button class="gray"></button>
+    <button class="lightgray"></button>
+    <button class="white"></button>
+    <button class="red"></button>
+    <button class="darkred"></button>
+    <button class="maroon"></button>
+    <button class="brown"></button>
+    <button class="tan"></button>
+    <button class="peach"></button>
+  </div>
+
+  <main>
+    <div class="gallery"></div>
+  </main>
+
+  <footer>사이트 관련 설명 텍스트</footer>
+
+  <!-- 모달 -->
+  <div class="modal-bg" id="bookModal">
+    <div class="modal-content" id="modalContent">
+      <div class="modal-close" id="modalClose">×</div>
     </div>
+  </div>
 
-    <main>
-      <div class="gallery"></div>
-    </main>
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const sidebar = document.getElementById('sidebar');
+    const closeBtn = document.getElementById('close-btn');
+    menuBtn.addEventListener('click', () => sidebar.classList.add('open'));
+    closeBtn.addEventListener('click', () => sidebar.classList.remove('open'));
 
-    <footer>
-      사이트 관련 설명 텍스트
-    </footer>
+    const isLoggedIn = false;
+    const loginDiv = document.querySelector('.login');
+    loginDiv.innerHTML = isLoggedIn ? '<a href="#">닉네임</a>' : '<a href="signup.html">LOG IN</a>';
 
-    <script>
-      document.addEventListener('DOMContentLoaded', async () => {
-        const menuBtn = document.getElementById('menu-btn');
-        const sidebar = document.getElementById('sidebar');
-        const closeBtn = document.getElementById('close-btn');
-        menuBtn.addEventListener('click', () => sidebar.classList.add('open'));
-        closeBtn.addEventListener('click', () => sidebar.classList.remove('open'));
+    const modalBg = document.getElementById('bookModal');
+    const modalContent = document.getElementById('modalContent');
+    const modalClose = document.getElementById('modalClose');
 
-        const isLoggedIn = false;
-        const loginDiv = document.querySelector('.login');
-        loginDiv.innerHTML = isLoggedIn ? '<a href="#">닉네임</a>' : '<a href="signup.html">LOG IN</a>';
+    modalClose.addEventListener('click', () => modalBg.style.display = 'none');
+    modalBg.addEventListener('click', (e) => {
+      if (e.target === modalBg) modalBg.style.display = 'none';
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') modalBg.style.display = 'none';
+    });
 
-        const buttons = document.querySelectorAll('.filters button');
-        buttons.forEach(button => {
-          button.addEventListener('click', () => {
-            buttons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-          });
-        });
+    function openBookModal(book) {
+      modalContent.innerHTML = `
+        <div class="modal-close" id="modalClose">×</div>
+        <img src="images/${book.image}" alt="${book.title}">
+        <h2>${book.title}</h2>
+        <p>저자: ${book.author || '정보 없음'}</p>
+        ${book.translator ? `<p>옮긴이: ${book.translator}</p>` : ''}
+        <p>출판사: ${book.publisher || '정보 없음'}</p>
+        <p>ISBN: ${book.isbn}</p>
+      `;
+      document.getElementById('modalClose').addEventListener('click', () => modalBg.style.display = 'none');
+      modalBg.style.display = 'flex';
+    }
 
-        const response = await fetch('https://opensheet.elk.sh/126nG5X3rOgwahgpJ6fjkNw1HsmGVCboFLw1-NMv3mGA/Sheet1');
-        const books = await response.json();
-        const gallery = document.querySelector('.gallery');
-        gallery.innerHTML = '';
+    document.addEventListener('DOMContentLoaded', async () => {
+      const res = await fetch('https://opensheet.elk.sh/126nG5X3rOgwahgpJ6fjkNw1HsmGVCboFLw1-NMv3mGA/Sheet1');
+      const books = await res.json();
+      const gallery = document.querySelector('.gallery');
+      gallery.innerHTML = '';
 
-        books.forEach(book => {
-          const title = book['title'];
-          const author = book['author'];
-          const publisher = book['publisher'];
-          const translator = book['translator'];
-          const imagePath = `images/${book['image']}`;
-
-          const coverDiv = document.createElement('div');
-          coverDiv.className = 'cover';
-          coverDiv.innerHTML = `
-            <img src="${imagePath}" alt="${title}" title="${title}">
-            <div class="cover-info">
-              <div><strong>${title}</strong></div>
-              <div>${author}</div>
-              <div>${publisher}</div>
-              ${translator ? `<div>옮긴이: ${translator}</div>` : ''}
-              <div style="margin-top: 5px;">
-                <button>LIKE</button> <button>MY SHELF</button>
-              </div>
-            </div>
-          `;
-          gallery.appendChild(coverDiv);
-        });
+      books.forEach(book => {
+        const coverDiv = document.createElement('div');
+        coverDiv.className = 'cover';
+        coverDiv.innerHTML = `
+          <img src="images/${book.image}" alt="${book.title}">
+          <div class="cover-info">
+            <div><strong>${book.title}</strong></div>
+            <div>${book.author}</div>
+            <div>${book.publisher}</div>
+          </div>
+        `;
+        coverDiv.addEventListener('click', () => openBookModal(book));
+        gallery.appendChild(coverDiv);
       });
-    </script>
-  </body>
+    });
+  </script>
+</body>
 </html>

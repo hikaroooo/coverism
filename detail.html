@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>책 상세보기</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      text-align: center;
+    }
+    header {
+      padding: 20px;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .back-btn {
+      text-decoration: none;
+      color: #007BFF;
+      font-size: 1rem;
+    }
+    .detail-container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .cover-img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+    .book-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .book-meta {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 5px;
+    }
+    .actions {
+      margin-top: 20px;
+    }
+    .actions button {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      margin: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="back-btn">← 돌아가기</a>
+    <div class="logo">표지주의</div>
+    <div></div>
+  </header>
+
+  <div class="detail-container" id="book-detail">
+    <p>불러오는 중...</p>
+  </div>
+
+  <script>
+    // URL에서 ISBN 파라미터 가져오기
+    const urlParams = new URLSearchParams(window.location.search);
+    const isbn = urlParams.get('isbn');
+
+    async function loadBookDetail() {
+      const container = document.getElementById('book-detail');
+
+      if (!isbn) {
+        container.innerHTML = "<p>잘못된 접근입니다.</p>";
+        return;
+      }
+
+      try {
+        // 구글 시트 데이터 가져오기
+        const res = await fetch('https://opensheet.elk.sh/126nG5X3rOgwahgpJ6fjkNw1HsmGVCboFLw1-NMv3mGA/Sheet1');
+        const books = await res.json();
+
+        // ISBN이 같은 책 찾기
+        const book = books.find(b => b.isbn === isbn);
+
+        if (!book) {
+          container.innerHTML = "<p>책 정보를 찾을 수 없습니다.</p>";
+          return;
+        }
+
+        // 상세 페이지 렌더링
+        container.innerHTML = `
+          <img src="images/${book.image}" alt="${book.title}" class="cover-img">
+          <div class="book-title">${book.title}</div>
+          <div class="book-meta">저자: ${book.author || '정보 없음'}</div>
+          ${book.translator ? `<div class="book-meta">옮긴이: ${book.translator}</div>` : ''}
+          <div class="book-meta">출판사: ${book.publisher || '정보 없음'}</div>
+          <div class="book-meta">ISBN: ${book.isbn}</div>
+          <div class="actions">
+            <button onclick="alert('좋아요 기능은 준비 중입니다.')">LIKE</button>
+            <button onclick="alert('MY SHELF 기능은 준비 중입니다.')">MY SHELF</button>
+          </div>
+        `;
+      } catch (err) {
+        container.innerHTML = "<p>데이터를 불러오는 중 오류가 발생했습니다.</p>";
+      }
+    }
+
+    loadBookDetail();
+  </script>
+</body>
+</html>
